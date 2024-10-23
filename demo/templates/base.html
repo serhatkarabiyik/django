@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Factures</title>
+
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}"> {% block extra_head %} {% endblock %}
+    </head>
+
+    <body>
+        <header>
+            <h1>Gestion des factures</h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'facture_list' %}">Toutes les factures</a></li>
+                    <li><a href="{% url 'facture_create' %}">Créer une facture</a></li>
+                    <li><a href="{% url 'client_list' %}">Tout les clients</a></li>
+                    <li><a href="{% url 'client_create' %}">Créer un client</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            {% block content %} {% endblock %}
+        </main>
+
+        <footer>
+        </footer>
+
+        {% block extra_js %} {% endblock %}
+    </body>
+
+</html>

@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Créer une nouvelle facture</h2>
+
+{% if form.non_field_errors %}
+<div class="errorlist">{{ form.non_field_errors }}</div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">Sauvegarder</button>
+</form>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Liste des factures</h2>
+
+<div class="filter-container">
+    <form method="GET" action="">
+        <label for="client">Filtrer par client :</label>
+        <select name="client" id="client" onchange="window.location.href='/factures/client/' + this.value + '/'">
+            <option value="">-- Sélectionnez un client --</option>
+            {% for client in clients %}
+            <option value="{{ client.id }}" {% if client.id == selected_client %}selected{% endif %}>
+                {{ client.nom }}
+            </option>
+            {% endfor %}
+        </select>
+    </form>
+    <a href="{% url 'facture_list' %}">Réinitialiser le filtre</a>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Numéro</th>
+            <th>Date</th>
+            <th>Montant</th>
+            <th>Catégorie</th>
+            <th>Client</th>
+            <th>Description</th>
+            <th>Payée</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for facture in factures %}
+        <tr>
+            <td>{{ facture.id }}</td>
+            <td>{{ facture.numero }}</td>
+            <td>{{ facture.date }}</td>
+            <td>{{ facture.montant }}</td>
+            <td>{{ facture.categorie.nom }}</td>
+            <td>{{ facture.client.nom }}</td>
+            <td>{{ facture.description }}</td>
+            <td>{{ facture.est_payee|yesno:"Oui,Non" }}</td>
+            <td class="action-buttons">
+                <a href="{% url 'facture_detail' facture.pk %}">Voir</a>
+                <a href="{% url 'facture_update' facture.pk %}">Modifier</a>
+                <a href="{% url 'facture_delete' facture.pk %}">Supprimer</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">Aucune facture trouvée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

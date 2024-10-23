@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Liste des Clients</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Adresse</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in clients %}
+        <tr>
+            <td>{{ client.id }}</td>
+            <td>{{ client.nom }}</td>
+            <td>{{ client.email }}</td>
+            <td>{{ client.telephone }}</td>
+            <td>{{ client.adresse }}</td>
+            <td class="action-buttons">
+                <a href="{% url 'client_detail' client.pk %}">Voir</a>
+                <a href="{% url 'client_update' client.pk %}">Modifier</a>
+                <a href="{% url 'client_delete' client.pk %}">Supprimer</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">Aucun client trouvé.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

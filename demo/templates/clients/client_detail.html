@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Détails de {{ client.nom }}</h2>
+<p>Email: {{ client.email }}</p>
+<p>Téléphone: {{ client.telephone }}</p>
+<p>Adresse: {{ client.adresse }}</p>
+<div class="action-buttons">
+    <a href="{% url 'client_update' client.id %}">Modifier</a>
+    <a href="{% url 'client_delete' client.id %}">Supprimer</a>
+    <a href="{% url 'client_list' %}">Retour à la liste</a>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Détails de la facture</h2>
+<p><strong>ID :</strong> {{ facture.id }}</p>
+<p><strong>Numéro :</strong> {{ facture.numero }}</p>
+<p><strong>Date :</strong> {{ facture.date }}</p>
+<p><strong>Montant :</strong> {{ facture.montant }}</p>
+<p><strong>Catégorie :</strong> {{ facture.categorie.nom }}</p>
+<p><strong>Client :</strong> {{ facture.client.nom }}</p>
+<p><strong>Est payée :</strong> {{ facture.est_payee|yesno:"Oui,Non" }}</p>
+<p><strong>Description :</strong> {{ facture.description }}</p>
+<div class="action-buttons">
+    <a href="{% url 'facture_update' facture.pk %}">Modifier</a>
+    <a href="{% url 'facture_delete' facture.pk %}">Supprimer</a>
+    <a href="{% url 'facture_list' %}">Retour à la liste</a>
+</div>{% endblock %}
