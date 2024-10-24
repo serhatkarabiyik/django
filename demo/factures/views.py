@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Facture
 from .forms import FactureForm
 from clients.models import Client
+from django.contrib.auth.decorators import login_required
 
 # Liste
+# @login_required
 def facture_list(request, client_id=None):
     clients = Client.objects.all()  
 

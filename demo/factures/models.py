@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from clients.models import Client
 
 class CategorieFacture(models.Model):
@@ -18,3 +19,7 @@ class Facture(models.Model):
 
     def __str__(self):
         return f"Facture {self.numero}"
+
+    def clean(self):
+        if self.montant < 0.00:
+            raise ValidationError("Le montant d'une facture ne peut pas être négatif.")
