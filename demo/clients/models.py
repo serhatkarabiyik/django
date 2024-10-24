@@ -5,6 +5,6 @@ class Client(models.Model):
     email = models.EmailField(max_length=254, unique=True)
     telephone = models.CharField(max_length=15, blank=True, null=True)
     adresse = models.TextField(blank=True, null=True)
-
+    numero_fiscal = models.CharField(max_length=50)
     def __str__(self):
         return self.nom

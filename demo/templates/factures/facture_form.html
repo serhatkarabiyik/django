@@ -1,12 +1,29 @@
 {% extends 'base.html' %} {% block content %}
-<h2>Créer une nouvelle facture</h2>
+<h2>Créer une Facture</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %} {{ facture_form.as_p }}
 
-{% if form.non_field_errors %}
-<div class="errorlist">{{ form.non_field_errors }}</div>
-{% endif %}
+    <h3>Articles</h3>
+    {{ article_formset.management_form }}
+    <table>
+        <thead>
+            <tr>
+                <th>Article</th>
+                <th>Quantité</th>
+                <th>Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in article_formset %}
+            <tr>
+                <td>{{ form.article }}</td>
+                <td>{{ form.quantite }}</td>
+                <td>{{ form.DELETE }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-<form method="post">
-    {% csrf_token %} {{ form.as_p }}
-    <button type="submit">Sauvegarder</button>
+    <button type="submit">Enregistrer la facture</button>
 </form>
 {% endblock %}

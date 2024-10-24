@@ -15,6 +15,8 @@ def facture_list(request, client_id=None):
     else:
         factures = Facture.objects.all()
 
+    for facture in factures:
+        facture.calculer_total()
 
     return render(request, 'factures/facture_list.html', {
         'factures': factures,
@@ -32,14 +34,27 @@ def facture_detail(request, pk):
 @login_required
 def facture_create(request):
     if request.method == 'POST':
-        form = FactureForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('facture_list')
-    else:
-        form = FactureForm()
+        facture_form = FactureForm(request.POST)
+        article_formset = FactureArticleFormSet(request.POST, request.FILES)
 
-    return render(request, 'factures/facture_form.html', {'form': form})
+        if facture_form.is_valid() and article_formset.is_valid():
+            facture = facture_form.save()
+
+            articles = article_formset.save(commit=False)
+            for article in articles:
+                article.facture = facture  
+                article.save()
+
+            return redirect('facture_list')  
+
+    else:
+        facture_form = FactureForm()
+        article_formset = FactureArticleFormSet()
+
+    return render(request, 'factures/facture_form.html', {
+        'facture_form': facture_form,
+        'article_formset': article_formset,
+    })
 
 
 

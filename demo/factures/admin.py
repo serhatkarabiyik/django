@@ -3,7 +3,7 @@ from .models import Facture
 from clients.models import Client  
 
 class FactureAdmin(admin.ModelAdmin):
-    list_display = ('numero', 'date', 'montant', 'client', 'categorie', 'est_payee')
+    list_display = ('numero', 'categorie', 'client', 'description', 'est_payee', 'date_entree_en_vigueur', 'date_transaction', 'frequence_facturation', 'mode_paiement', 'tva', 'reglement', 'company')
     
     search_fields = ('numero', 'client__nom')  
 
