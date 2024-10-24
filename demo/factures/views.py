@@ -5,7 +5,7 @@ from clients.models import Client
 from django.contrib.auth.decorators import login_required
 
 # Liste
-# @login_required
+@login_required
 def facture_list(request, client_id=None):
     clients = Client.objects.all()  
 
@@ -23,11 +23,13 @@ def facture_list(request, client_id=None):
     })
 
 # Détail
+@login_required
 def facture_detail(request, pk):
     facture = get_object_or_404(Facture, pk=pk)
     return render(request, 'factures/facture_detail.html', {'facture': facture})
 
 # Créer
+@login_required
 def facture_create(request):
     if request.method == 'POST':
         form = FactureForm(request.POST)
@@ -42,6 +44,7 @@ def facture_create(request):
 
 
 # Modifier
+@login_required
 def facture_update(request, pk):
     facture = get_object_or_404(Facture, pk=pk)
     if request.method == "POST":
@@ -54,6 +57,7 @@ def facture_update(request, pk):
     return render(request, 'factures/facture_form.html', {'form': form})
 
 # Supprimer
+@login_required
 def facture_delete(request, pk):
     facture = get_object_or_404(Facture, pk=pk)
     if request.method == "POST":
